@@ -1,5 +1,7 @@
 # CAP4601 Project 1 | ConnectM Computer Game
 
+Reference for Report: [Adversarial Search](https://www.javatpoint.com/ai-adversarial-search)
+
 ## OVERVIEW 
 This  assignment  will  require  you  to  implement  a  computer  game  for  a  human  user  to  play  the  game  Connect  M 
 against a machine. Your program must use adversarial search techniques, specifically alpha-beta pruning, along with 
