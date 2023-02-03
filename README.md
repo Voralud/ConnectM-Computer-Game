@@ -26,7 +26,7 @@ winning moves and terminates when it detects a winner or a draw.
 
 
 ## Final Evaluations 
-• Is a board visualized according to the input parameter? 
-• Are disks set correctly in the game for the player and the computer? 
-• Is a winning move recognized? 
-• Does the computer attempt to play a winning game? 
+* Is a board visualized according to the input parameter? 
+* Are disks set correctly in the game for the player and the computer? 
+* Is a winning move recognized? 
+* Does the computer attempt to play a winning game? 
