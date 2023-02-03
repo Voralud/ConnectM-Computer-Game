@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Random;
 
 /**
  * The connectM class represents a game of Connect M.
@@ -29,6 +30,10 @@ public class connectM {
     /** The number of the player whose turn it is. 1 or 2. */
     static int turn = 1;
     
+     /** Random number generator for AI moves */
+     //TODO: To be replaced with hueristic algorithm
+    static Random random = new Random();
+    
 
     /**
      * The main method that runs the Connect M game.
@@ -39,20 +44,34 @@ public class connectM {
         boolean winner = false;
 
         while (!winner) {
-            printBoard();
-            System.out.println("Player " + turn + " choose a column (1-" + N + "): ");
-            int col = scanner.nextInt() - 1;
-            while (col < 0 || col >= COLUMNS) {
-                System.out.println("Invalid column! Choose again (1-" + N + "): ");
-                col = scanner.nextInt() - 1;
+            if (turn == 1) {
+                // Human player
+                printBoard();
+                System.out.print("Player " + turn + " choose a column (1-" + N + "): ");
+                int col = scanner.nextInt() - 1;
+                System.out.println();
+                while (col < 0 || col >= COLUMNS) {
+                    System.out.print("\nInvalid column! Choose again (1-" + N + "): ");
+                    col = scanner.nextInt() - 1;
+                    System.out.println();
+                }
+                dropPiece(col);
+            } else {
+                // AI player
+                int col = random.nextInt(N);//TODO: MAKE IT SMART
+                System.out.println("Computer chose column " + (col + 1));
+                dropPiece(col);
             }
-            dropPiece(col);
             winner = checkForWin(M);
             turn = (turn == 1) ? 2 : 1;
         }
         printBoard();
         turn = (turn == 1) ? 2 : 1;
+        if(turn == 2){
+        System.out.println("Computer wins!");
+        } else {
         System.out.println("Player " + turn + " wins!");
+        }
     }
 
     /**
