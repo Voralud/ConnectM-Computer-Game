@@ -1,4 +1,5 @@
-# CONNECT M COMPUTER GAME
+# CAP4601 Project 1
+## ConnectM Computer Game
 
 ## OVERVIEW 
 This  assignment  will  require  you  to  implement  a  computer  game  for  a  human  user  to  play  the  game  Connect  M 
