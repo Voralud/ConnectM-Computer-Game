@@ -105,13 +105,38 @@ public class connectM {
     * @param col the column to drop the piece into
     */
     static void dropPiece(int col) {
-        for (int row = ROWS - 1; row >= 0; row--) {
-            if (board[row][col] == 0) {
+        
+    	if(checkIfFull(col) == true) {
+    		if(turn == 1) {
+    			turn = 2;
+    		}
+    		else if(turn == 2) {
+    			turn = 1;
+    		}
+    		return;
+    	}
+    	for (int row = ROWS - 1; row >= 0; row--) {
+    		
+        	if (board[row][col] == 0) {
                 board[row][col] = turn;
                 break;
             }
         }
     }
+    
+    static boolean checkIfFull(int col) {
+    	
+    	boolean isFull = false;
+    	
+    	if(board[0][col] == 1 || board[0][col]==2) {
+    		System.out.println("Column is full, choose a different column.");
+    		isFull = true;
+    	}
+    	
+    	return isFull;
+    	
+    }
+
 
 
    /**
@@ -120,7 +145,12 @@ public class connectM {
     * @return true if either player has won, false otherwise
     */
     static boolean checkForWin(int M) {
-        // Check for horizontal win
+    	
+    	/*if() {
+    		//check for draw
+    		System.exit(0);
+    	}*/
+    	// Check for horizontal win
         for (int row = 0; row < ROWS; row++) {
             for (int col = 0; col < COLUMNS - M + 1; col++) {
                 int count = 0;
