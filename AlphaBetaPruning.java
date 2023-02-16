@@ -42,4 +42,51 @@ public class AlphaBetaPruning {
       return minValue;
     }
   }
+  //**************************************************
+  
+  
+  public int AlphaBetaSearch(int currBoard[][],int rows,int cols) {
+	  int action = 0;
+	  
+	  int[][] pseudoBoard = new int[rows][cols];	  
+	  //copy current state of the board
+	  for(int i=0;i<rows;i++) {
+		  for(int j=0;j<cols;j++) {
+			  pseudoBoard[i][j] = currBoard[i][j];
+		  }
+	  }
+	  
+	  int alpha = -999999;
+	  int beta = 999999;
+	  
+	  for(int i=0; i< cols;i++) {
+		  int tempAlpha = MinValue(ApplyAction(pseudoBoard,i),currBoard,alpha,beta);
+		  if(tempAlpha >alpha) {
+			  alpha = tempAlpha;
+			  action = i;
+		  }
+	  }
+	  
+	  
+	  
+	  return action;
+  }
+  
+  public int[][] ApplyAction(int pseudoBoard[][], int col){
+	  
+	  //apply column move to pseudoBoard
+	  return pseudoBoard;
+  }
+  
+  public int MinValue(int[][] pseudoBoard, int[][] currBoard, int alpha, int beta) {
+	  
+	  //min value stuff
+	  return beta;
+  }
+  
+  public int maxValue(int[][] pseudoBoard, int[][] currBoard,int alpha,int beta) {
+	  //max stuff
+	  return alpha;
+  }
+  
 }
