@@ -12,8 +12,8 @@ public class connectM {
    /** The dimensions of the quadratic grid. (At least 3 but no larger than 10) */
     static final int N = 5;
     
-  /** The number of consecutice pieces needed to win. (Higher than 1 but no higher than N) */
-    static final int M = 4;
+  /** The number of consecutive pieces needed to win. (Higher than 1 but no higher than N) */
+    static final int M = 5;
 
     /** The number of rows on the game board. */
     static final int ROWS = N;
@@ -31,7 +31,7 @@ public class connectM {
     static int turn = 1;
     
      /** Random number generator for AI moves */
-     //TODO: To be replaced with hueristic algorithm
+     //TODO: To be replaced with heuristic algorithm
     static Random random = new Random();
     
 
@@ -68,9 +68,10 @@ public class connectM {
         printBoard();
         turn = (turn == 1) ? 2 : 1;
         if(turn == 2){
-        System.out.println("Computer wins!");
+        	System.out.println("Computer wins!");
         } else {
-        System.out.println("Player " + turn + " wins!");
+        	System.out.println("Player " + turn + " wins!");
+        
         }
     }
 
@@ -107,6 +108,7 @@ public class connectM {
     static void dropPiece(int col) {
         
     	if(checkIfFull(col) == true) {
+    		System.out.println("Column is full, choose a different column.");
     		if(turn == 1) {
     			turn = 2;
     		}
@@ -129,7 +131,6 @@ public class connectM {
     	boolean isFull = false;
     	
     	if(board[0][col] == 1 || board[0][col]==2) {
-    		System.out.println("Column is full, choose a different column.");
     		isFull = true;
     	}
     	
@@ -138,18 +139,27 @@ public class connectM {
     }
 
 
-
    /**
     * Checks the current state of the game board to see if either player has won.
     * @param M the number of consecutive pieces needed to win
     * @return true if either player has won, false otherwise
     */
     static boolean checkForWin(int M) {
+    	//Check for tie
+    	boolean isTie = false;
+    	int fullCounter = 0;
     	
-    	/*if() {
-    		//check for draw
-    		System.exit(0);
-    	}*/
+    	for(int col=0;col<COLUMNS;col++){
+    		if(checkIfFull(col) == true) {
+    			fullCounter++;
+    		}
+    		if(fullCounter == (COLUMNS)) {
+    			printBoard();
+    			System.out.println("It's a tie!");
+    			System.exit(0);
+    		}
+    	}
+    	
     	// Check for horizontal win
         for (int row = 0; row < ROWS; row++) {
             for (int col = 0; col < COLUMNS - M + 1; col++) {
