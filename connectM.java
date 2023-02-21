@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.Random;
 
 /**
  * The connectM class represents a game of Connect M.
@@ -119,15 +118,6 @@ public class connectM {
    }
     
    /**
-    * Get the computer player's move
-    * @return col
-    */
-   private static int computerMove() {
-      Random rand = new Random();
-      return rand.nextInt(N);
-   }
-    
-   /**
     * Drops a piece into the specified column for the current turn.
     * Pieces are dropped from the top down, filling the lowest empty row first.
     * @param col the column to drop the piece into
@@ -141,6 +131,15 @@ public class connectM {
          }
       }
    }
+   
+   private static int findEmptyRow(int col) {
+    for (int row = N - 1; row >= 0; row--) {
+        if (board[row][col] == 0) {
+            return row;
+        }
+    }
+    return -1; // Column is full
+}
    
     /**
     * Checks the current state of the game board to see if a player has won.
@@ -221,6 +220,122 @@ public class connectM {
          }
       }
       return true;
+   }
+   
+ 
+    /**
+    * Get the computer player's move
+    * @return col
+    */
+   private static int computerMove() {
+    int bestCol = 0;
+    int alpha = Integer.MIN_VALUE;
+    int beta = Integer.MAX_VALUE;
+    int maxVal = Integer.MIN_VALUE;
+    
+    // Try each column and evaluate the best move using alpha-beta pruning
+    for (int col = 0; col < N; col++) {
+        if (board[0][col] == 0) {  // Check if column is not full
+            int row = findEmptyRow(col); // Get the empty row in the column
+            board[row][col] = computerPlayer; // Make the move
+            
+            int val = min(alpha, beta, 1);
+            
+            // Update the best move so far
+            if (val > maxVal) {
+                maxVal = val;
+                bestCol = col;
+            }
+            
+            board[row][col] = 0; // Undo the move
+        }
+    }
+    
+    return bestCol;
+   }
+
+   /**
+    * Evaluates the minimum value of the game tree for the given state using alpha-beta pruning algorithm.
+    * @param alpha the alpha value for the alpha-beta pruning
+    * @param beta the beta value for the alpha-beta pruning
+    * @param depth the current depth of the search in the game tree
+    * @return the minimum value of the game tree for the given state
+    */
+   private static int min(int alpha, int beta, int depth) {
+       if (checkWin(humanPlayer)) {
+           return -1000; // The human wins
+       } else if (checkWin(computerPlayer)) {
+           return 1000; // The computer wins
+       } else if (checkDraw() || depth == maxDepth) {
+           return 0; // Draw or max depth reached
+       }
+       
+       int minVal = Integer.MAX_VALUE;
+       
+       // Try each column and evaluate the worst outcome using alpha-beta pruning
+       for (int col = 0; col < N; col++) {
+           if (board[0][col] == 0) { // Check if column is not full
+               int row = findEmptyRow(col); // Get the empty row in the column
+               board[row][col] = humanPlayer; // Make the move
+               
+               int val = max(alpha, beta, depth + 1);
+               
+               // Update the minimum value so far and prune the search if possible
+               if (val < minVal) {
+                   minVal = val;
+               }
+               if (minVal <= alpha) {
+                   board[row][col] = 0; // Undo the move
+                   return minVal; // Prune the search
+               }
+               beta = Math.min(beta, minVal);
+               board[row][col] = 0; // Undo the move
+           }
+       }
+       
+       return minVal;
+   }
+   
+   /**
+    * Evaluates the maximum value of the game tree for the given state using alpha-beta pruning algorithm.
+    * @param alpha the alpha value for the alpha-beta pruning
+    * @param beta the beta value for the alpha-beta pruning
+    * @param depth the current depth of the search in the game tree
+    * @return the maximum value of the game tree for the given state
+    */
+   private static int max(int alpha, int beta, int depth) {
+       if (checkWin(humanPlayer)) {
+           return -1000; // The human wins
+       } else if (checkWin(computerPlayer)) {
+           return 1000; // The computer wins
+       } else if (checkDraw() || depth == maxDepth) {
+           return 0; // Draw or max depth reached
+       }
+    
+    int maxVal = Integer.MIN_VALUE;
+   
+   // Try each column and evaluate the best outcome using alpha-beta pruning
+   for (int col = 0; col < N; col++) {
+       if (board[0][col] == 0) { // Check if column is not full
+           int row = findEmptyRow(col); // Get the empty row in the column
+           board[row][col] = computerPlayer; // Make the move
+           
+           int val = min(alpha, beta, depth + 1);
+           
+           // Update the maximum value so far and prune the search if possible
+           if (val > maxVal) {
+               maxVal = val;
+           }
+           if (maxVal >= beta) {
+               board[row][col] = 0; // Undo the move
+               return maxVal; // Prune the search
+           }
+           alpha = Math.max(alpha, maxVal);
+           board[row][col] = 0; // Undo the move
+       }
+   }
+   
+   return maxVal;
    }
    
 }
