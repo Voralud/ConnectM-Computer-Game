@@ -37,7 +37,7 @@ public class connectM {
       humanPlayer = 1;
       computerPlayer = 2;
       turn = 1;
-      maxDepth = 5; // the maximum depth to search in the game tree (can be adjusted)
+      maxDepth = 10; // the maximum depth to search in the game tree (can be adjusted)
       if (humanFirst == 0) {
          int col = computerMove();
          dropDisk(col, computerPlayer);
