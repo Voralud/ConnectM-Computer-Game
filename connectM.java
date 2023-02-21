@@ -8,7 +8,7 @@ import java.util.Random;
  * that must be connected contiguously in the grid in a row.
  */
 
-public class ConnectM {
+public class connectM {
 
    private static int N; // size of the board
    private static int M; // number of disks to connect contiguously
