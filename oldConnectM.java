@@ -7,7 +7,7 @@ import java.util.Random;
  * into a N x N  quadratic grid until someone wins by getting "M" disks  
  * that must be connected contiguously in the grid in a row.
  */
-public class connectM {
+public class oldConnectM {
    
    /** The dimensions of the quadratic grid. (At least 3 but no larger than 10) */
     static final int N = 5;
