@@ -27,8 +27,5 @@ human player to enter a number to select a column and  add a disk to the board. 
 winning moves and terminates when it detects a winner or a draw. 
 
 
-## Final Evaluations 
-* Is a board visualized according to the input parameter? 
-* Are disks set correctly in the game for the player and the computer? 
-* Is a winning move recognized? 
-* Does the computer attempt to play a winning game? 
+## HOW TO RUN THE PROGRAM
+Download and unzip the program in an accessible file. Import the file into Eclipse, JGrasp, or any Java IDE where GitBash is available. Once the program is imported onto the IDE, open GitBash and navigate to the file the program is saved in. Compile the program just to make sure there are no errors with importing. In Gitbash you will run the command: "java connectM N M H", where N is the number of columns and rows in the N x N grid (greater than 3, but no higher than 10), M is the number of disks that must be connected contiguosly in the grid(must be greater than 1 and no larger than N), and H is the parameter that determines whether the computer or the human goes first (0 for the computer to go first, and 1 for the human to go first). For example a valid command would be : "java connectM 6 4 1" (this gives a 6x6 grid where you have to get 4 in a row and the human player goes first).
