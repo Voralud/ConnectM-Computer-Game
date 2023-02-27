@@ -1,3 +1,4 @@
+//Daniel Ulate Leal and Elena Lucci
 import java.util.Scanner;
 
 /**
